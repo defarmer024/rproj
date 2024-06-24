@@ -1,0 +1,21 @@
+---
+title: "Sophia"
+author: "hansdefarmer"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+Book1 <- read_csv("C://Users//dennis//Desktop//hans R//Book1.csv")
+Book1
+df=Book1[,5]
+df
+```
+```{r}
+acf(df,lag=22,pI=FALSE)
+```
+

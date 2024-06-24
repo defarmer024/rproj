@@ -1,0 +1,20 @@
+---
+title: "contingecy Tables"
+author: "hansdefarmer"
+date: "7/19/2021"
+output:
+  html_document: default
+  pdf_document: default
+  word_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#We can us table(),prop.table(),and as.data.frame.matrix()
+```{r}
+c <- c(20)
+c
+```
+

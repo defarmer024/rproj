@@ -1,0 +1,48 @@
+---
+title: "mutation"
+author: "De Farmer"
+date: "6/13/2021"
+output:
+  word_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+df <- mtcars
+df
+```
+
+```{r}
+library(tidyverse)
+df <- mutate(df,df_new=mpg/cyl)
+df
+df$df_new <- round(df$df_new,digits = 1)
+df
+```
+```{r}
+mtcars$cyl <- factor(mtcars$cyl,levels = c(4,6,8),labels = c("4_cylinders","6_cylinders","8_cylinders"))
+df
+mtcars$am <- factor(mtcars$am,levels = c(0,1),labels = c("Auto","Manual"))
+mtcars$gear <- factor(mtcars$gear,levels = c(3,4,5),labels = c("3_speed","4_speed","5_speed"))
+qplot(mpg,data=mtcars,geom="density",fill=gear,alpha=I(.5),main="Distribution Of Gas Milage",xlab="Miles per Gallon",ylab="Density")
+```
+# **Shapiro test** is a normality test in frequentist statistics.
+# Ho:population is distributed normally.
+
+# W- is the shapiro wilk statistic range 0< W< 1.
+
+# Normally distributed samples result in higher value of W.
+
+```{r}
+shapiro.test(mtcars$mpg)
+
+```
+```{r}
+atoman<-glm(am~mpg+wt+hp, data=mtcars, family = binomial)
+summary(atoman)
+```
+

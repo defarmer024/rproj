@@ -1,0 +1,23 @@
+---
+title: "pairT"
+author: "hansdefarmer"
+date: "10/22/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+df <- read.csv("C:\\Users\\dennis\\Desktop\\hans R\\pairT.csv")
+df
+gender=c(1,0,0,1,0,1,1,0,1,0)
+df <- cbind(df,gender)
+df
+boxplot(Weight1~gender,data = df)
+```
+```{r}
+t.test(df$Weight1,df$Weight2,paired=TRUE)
+```
+

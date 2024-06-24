@@ -1,0 +1,135 @@
+---
+title: "Data Reshaping"
+author: "De Farmer"
+date: "4/21/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(comment="#>",echo = FALSE)
+```
+
+#Data Reshaping is about how data  is organised in rows and columns.
+
+#It involves merge,split,and changing rows to column.
+
+#1:**Transpose of a matrix**
+
+#t(matrix/data frame)
+
+```{r}
+print("Creating matrix")
+
+a <- matrix(c(4:12),nrow=3,byrow = TRUE)
+a
+print("matrix after transpose")
+b <- t(a)
+b
+```
+
+#Joining rows and columns in data frame
+
+#R allows to join multiple vectors to create a data frame.Fot this purpose R provides cbind().It also provides rbind(),which allows to merge two data frames.
+
+#cbind(vector1,vector2,...............vectorN)
+
+#rbind(dataframe1,dataframe2..........dataframeN)
+
+```{r}
+Name <- c("Joy","Peter","Hans","Pesh")
+Adress <- c("Mwingi","Matuu","Eldoret","Juja")
+Marks <- c(342,332,410,390)
+info <- cbind(Name,Adress,Marks)
+info
+```
+
+#creating another data frame with similar columns
+
+```{r}
+info1 <- data.frame(Name=c("Liz","Kadzo"),Adress=c("Kamuwongo","Machakos"),Marks=c(287,354),stringsAsFactors = TRUE)
+info1
+```
+
+#Combining both data frames
+
+#NB:Error
+
+```{r info,error=FALSE}
+all.info <- rbind(info,info1)
+all.info
+```
+
+
+#Merging data frame??
+
+#melting of data and casting of molten data??
+
+
+```{r}
+D=read.csv("C:\\Users\\dennis\\Desktop\\kabati cycle21.csv")
+D
+```
+
+
+#Creating user_defined functions in R
+#A function is a collection of **instructions or statements** that work together to accomplish a definite task.
+#Syntax ====**Function_name <- function(arguments){**
+#**function_body**
+#**return (return)**
+#**}**
+#user defined fuction to check divisibility by three using if else control structure 
+```{r}
+check <- function(x){
+  if(x%%3==0){
+    result <- "the number is divisible by three"
+  }else {
+    result = "the number is not divisible by three"
+  }
+  result
+}
+check(6)
+check(2)
+```
+
+
+#User defined function to perform reciprocal of a number.
+```{r}
+may <- c(28,64,63,43,56,46,87,34,73)
+reciprocal <- function(vec){
+  vec <- 1/vec
+ # rvec1 <- reciprocal(vec1)
+  return(vec)
+}
+reciprocal(may)
+```
+
+#User defined function to perform factorial of a number
+
+```{r}
+fact=function(a){
+  facto=1
+# check is the number is negative, positive or zero
+if(a < 0) {
+print("Sorry, factorial does not exist for negative numbers")
+} else if(a == 0) {
+print(1)
+} else {
+for(i in 1:a) {
+facto = facto * i
+}
+print(facto)
+}
+}
+fact(0)
+
+fact(5)
+```
+user defined funtion to compute mean
+```{r}
+soph=function(x){
+  n=length(x)
+  return(sum(x)/n)
+}
+
+```
+

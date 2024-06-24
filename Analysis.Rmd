@@ -1,0 +1,98 @@
+---
+title: "Data Analysis"
+author: "hansdefarmer"
+date: "2/28/2022"
+output:
+  word_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r ,kable()}
+library(ISLR2)
+Auto=Auto
+Auto
+attach(Auto)
+head(Auto)
+```
+```{r}
+summary(Auto)
+```
+```{r}
+auto1=Auto
+auto1
+```
+
+```{r}
+summary(auto1)
+cor(auto1-9)
+```
+#generating random numbers to split data to training and test data.
+```{r}
+part1=runif(nrow(auto1))
+part1
+#shuffled data below,
+auto1[order(part1),]
+index=order(part1)
+index
+```
+#extracting training data
+```{r}
+training=auto1[index[1:290],]
+training
+```
+
+#Extracting test data
+```{r}
+test=auto1[index[291:392],]
+test
+```
+#building models
+
+```{r}
+mmod=lm(mpg~displacement+weight,data = training)
+summary(mmod)
+boxplot(mmod$residuals)
+```
+#predicting values of test data using training data.
+```{r}
+pred1=predict(mmod,newdata = test)
+pred1
+
+```
+#adding col of predicted values using training model.
+```{r}
+test$predicted=pred1
+test
+```
+#Using multiple regression
+```{r}
+mmod1=lm(mpg~cylinders+displacement+horsepower+weight+acceleration,data=training)
+summary(mmod1)
+```
+
+```{r}
+plot(auto1$mpg,auto1$weight)
+abline(mmod1,col="green")
+pred2=predict(mmod1,newdata=test)
+pred2
+test$mpg2=pred2
+test
+```
+```{r}
+
+```
+
+#plots using ggplot
+
+
+```{r}
+library(ggplot2)
+td=data.frame(mpg01=test$mpg2,mpg02=test$predicted,x=test$id)
+
+ggplot(td,aes(x))+geom_line(aes(y=mpg01,colour="mpg01"))+geom_line(aes(y=mpg02,colour="mpg02"))
+```
+

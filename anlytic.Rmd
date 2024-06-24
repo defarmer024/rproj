@@ -1,0 +1,26 @@
+---
+title: "analytic"
+author: "hansdefarmer"
+date: "7/31/2021"
+output:
+  word_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+#ydudkddkdjfkdjgrjio ferbfnekepof
+#joxashsqwdko
+```{r}
+c <- 1:16
+c <- data.frame(c)
+matric <- matrix(data=c,ncol = 4, byrow = TRUE)
+matric
+```
+
+
+```{r}
+ggplot(data=c,aes(y=c,x=c))+geom_line()
+```
+

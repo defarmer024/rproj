@@ -1,0 +1,60 @@
+---
+title: "Untitled"
+author: "de farmer"
+date: "6/27/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+#Creating function to perform calculation for values of a  quadratic equation.
+```{r}
+quad<- function(a,b,c)
+{
+  print(paste0("Quadratic equation ",a,"x^2+",b,"x+",c,"."))
+  discrim<-(b^2)-(4*a*c)
+  
+  if(discrim<0){
+    return(paste0("No real roots."))
+  }
+  else if(discrim>0){
+    x_int_plus<-(-b+sqrt(discrim))/(2*a)
+    x_int_neg<-(-b-sqrt(discrim))/(2*a)
+    return(paste0("Two intercepts are = ",format(round(x_int_plus,5),nsmall=5)," and = ",
+    format(round(x_int_neg,5),nsmall=5),"."))
+}
+else
+  x_int<-(-b)/(2*a)
+return(paste0("root is=",x_int))
+}
+
+```
+
+```{r}
+quad(1,7,5)
+```
+
+
+```{r}
+mysd<-function(x)
+{
+  x<-length(x)
+  print("enter your numbers")
+  a<-scan()
+  sque<-a*a
+  sque
+  mmean<-sum(a)/x
+  mmeam
+ # sse<-sum((a-mmean)*(a-mmean))
+ # stsd<-sse/n-1
+  #stsd
+  
+  #return(sqrt(stsd))
+}
+mysd(5)
+```
+
+

@@ -1,0 +1,56 @@
+---
+title: "data structures"
+author: "Hans"
+date: "4/12/2021"
+output:
+  pdf_document: default
+  word_document: default
+  html_document: default
+---
+
+```{r setup,cache=TRUE,include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+#importing data in csv form
+
+```{r import,message=TRUE,error=TRUE,warning=TRUE}
+df <- read.csv("C:\\Users\\dennis\\Desktop\\hans R\\STAT 212 Assignment data.csv")
+df
+```
+```{r}
+summary(df$Pay)
+mean(df$Pay)
+plot(df$Education.Level,df$Pay)
+```
+```{r}
+scatter.smooth(df$Pay)
+```
+```{r}
+boxplot(df$Sex,df$Pay)
+```
+#no relation between sex and pay as shown by box plot above
+##Data transformation
+
+
+```{r}
+```
+
+
+```{r}
+df2 <- transform(df,Experience=as.vector(2))
+df2
+```
+
+
+```{r}
+summary(df)
+
+```
+```{r}
+a <- c(1:5)
+a
+b <- 1+2+3+4+5
+b
+```
+
+

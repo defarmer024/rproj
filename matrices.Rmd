@@ -1,0 +1,42 @@
+---
+title: "matrices"
+author: "hans  de farmer"
+date: "7/16/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+m <- c(23,45)
+m
+c <- c(44,67)
+s <- cbind(c,m)
+s
+```
+```{r}
+d <- c(23,43,45,66,44,3,4,4,5)
+m <-matrix(d,nrow = 3,ncol = 3) 
+m  
+e <- matrix(nrow = 10,ncol = 10)
+e
+```
+```{r}
+ml <- list(c,m,d)
+ml
+```
+```{r}
+mle <- list(name=c("Dennis Mwendwa"),age=c(30))
+mle
+
+```
+
+```{r}
+dd <- data.frame(d)
+dd
+
+plot(d,bty="]")
+```
+

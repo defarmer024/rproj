@@ -1,0 +1,107 @@
+---
+title: "Untitled"
+author: "lee7"
+date: '2023-02-08'
+output:
+  word_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r}
+#library(readxl)
+projo<-read.csv("PData Review final-3.csv")
+head(projo)
+```
+```{r}
+library(tidyverse)
+projo %>% ggplot(mapping = aes(x=Gender))+
+  geom_bar(fill="red")
+```
+```{r}
+#projo %>% ggplot(mapping = aes(x=`Year of study`))+
+ # geom_bar(fill="red")
+```
+```{r}
+projo %>% ggplot(aes(x="",y=Gender,fill=Gender))+
+  geom_bar(stat="identity", width=1) +
+  coord_polar("y", start=0)
+```
+```{r}
+#shapiro.test(projo)
+```
+```{r}
+#library(foreign)
+#proje<-read.spss("spss data2.sav")
+```
+```{r}
+#library(readxl)
+pro<-read.csv("PR.csv")
+```
+
+```{r}
+shapiro.test(pro$TransL)
+```
+```{r}
+shapiro.test(pro$TransA)
+```
+```{r}
+shapiro.test(pro$TransAP)
+```
+```{r}
+shapiro.test(pro$TransS)
+```
+```{r}
+cor.test(pro$TransA,pro$TransAP)
+```
+
+```{r}
+cor.test(pro$TransA,pro$TransL)
+```
+```{r}
+cor.test(pro$TransS,pro$TransAP)
+```
+```{r}
+acad<-lm(pro$TransAP~pro$TransL+pro$TransS+pro$TransA)
+summary(acad)
+```
+```{r}
+model2<-glm(TransAP~ TransL+TransS+TransA,data = pro)
+summary(model2)
+```
+
+```{r}
+ks.test(pro$TransA,"pnorm")
+ks.test(pro$TransL,"pnorm")
+ks.test(pro$TransS,"pnorm")
+ks.test(pro$TransAP,"pnorm")
+ks.test(pro$TransL,pro$TransA)
+ks.test(pro$TransAP,pro$TransA)
+ks.test(pro$TransS,pro$TransA)
+
+```
+```{r}
+x=table(projo$Year.of.study)
+label=round(100*x/sum(x),1)
+pie(x,labels=label,main = "Year of Study Pie Chart",col=rainbow(length(x)))
+legend("topright",c("Fifth Year","First Year","Fourth Year","second Year","Third Year"),cex = 0.8,fill = rainbow(length(x)))
+```
+
+```{r}
+y=table(projo$Faculty.of.study)
+labely=round(100*y/sum(x),1)
+pie(y,labels=labely,main ="Faculty Pie Chart",col=rainbow(length(y)))
+legend("topright",c("Business/Economics","Education","Engineering","Science"),cex = 0.8,fill = rainbow(length(y)))
+```
+
+```{r}
+
+s=table(projo$Age)
+labelz=round(100*s/sum(x),1)
+pie(s,labels=labelz,main ="Age Pie Chart",col=rainbow(length(s)))
+legend("topright",c("18 and below","19-24 years","25-30 years","31 and above"),cex = 0.8,fill = rainbow(length(s)))
+
+```
+

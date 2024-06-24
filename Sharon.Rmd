@@ -1,0 +1,74 @@
+---
+title: "Sharon"
+author: "hansdefarmer"
+date: "`r Sys.Date()`"
+output:
+  word_document: default
+  html_document: default
+---
+
+```{r setup, include=TRUE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Creating Matrix and giving names to rows amd columns
+```{r}
+ rown<-c("FQ","SQ","TQ")
+ COLN<-c("KERICH0","NAIROBI","KISUMU")
+ I<-matrix(c(0,2,7,3,6,-10,-5,8,20),byrow = TRUE,nrow = 3,dimnames =list (rown,COLN))
+ I
+```
+
+```{r}
+ic<-as.data.frame(I)
+ic
+```
+County with loses
+```{r}
+u<-which(colSums(ic)<0)
+u
+```
+Counties that made profit
+```{r}
+u<-which(colSums(ic)>0)
+u
+```
+counties whuch made neither profit nor loss
+```{r}
+u<-which(colSums(ic)==0)
+u
+```
+Total income for each quarter
+```{r}
+v<-rowSums(ic,na.rm = TRUE)
+v
+
+```
+Toal income for each County
+```{r}
+y<-colSums(ic,na.rm = TRUE)
+y
+```
+Replace all negative by Zero
+```{r}
+pmax(I,0)
+```
+County with highest income
+```{r}
+
+which.max(colSums(ic))
+```
+Worst quarter
+```{r}
+which.min(rowSums(ic))
+```
+Least performing county in income generation
+```{r}
+which.min(colSums(ic))
+```
+```{r}
+dat<-rnorm(100)
+ks.test(dat,"pnorm")
+```
+
+

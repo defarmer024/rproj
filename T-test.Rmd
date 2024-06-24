@@ -1,0 +1,50 @@
+---
+title: "T test"
+author: "De Farmer"
+date: "6/19/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#**T-test**-is used to check if mean of two groups is equal to each other.
+#The null hypothesis is that two means are the same,and the alternative is that they are not identical.
+#T-test syntax
+  **Dependent 2-group T-test**
+#t.test(y~x)...where y is numeric and x is binary factor
+  **Independent 2-group T-test**
+#t.test(y1,y2)...where y1 and y2 are numeric variables
+  **Paired T-test**
+#t.test(y1,y2,paired=TRUE)...y1 and y2 are numeric
+  **One sample T-test**
+#t.test(y,mu=3)...here Ho:mu=3
+
+  **HOW TO PERFORM T-test in R**
+#To specify equal variance and pooled variance we set var.equal=TRUE
+#we also use alternative="less" or alternative="greater" for specifying one- tailed test
+```{r}
+set.seed(0)
+ship <- c(rnorm(70,mean = 35000,sd=2000))
+ship
+t.test(ship,mu=35000)
+```
+
+**Independent T-test**
+#Equal variance not assumed
+```{r}
+set.seed(0)
+df <- rnorm(50,mean=300,sd=70)
+df1 <- rnorm(50,mean = 305,sd=70)
+t.test(df,df1,var.equal = FALSE)
+```
+  **paired T-test**
+```{r}
+set.seed(2800)
+pre <- c(rnorm(2000,mean = 130,sd=5))
+post <- c(rnorm(2000,mean = 144,sd=4))
+
+t.test(pre,post,paired = TRUE)
+```
+

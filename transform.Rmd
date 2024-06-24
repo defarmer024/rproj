@@ -1,0 +1,78 @@
+---
+title: "TRANSFORMATION"
+author: "Hans"
+date: "4/16/2021"
+output:
+  word_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo =TRUE)
+```
+
+#Importing data
+
+```{r}
+han <- read.csv("C:\\Users\\dennis\\Desktop\\hans R\\start.csv")
+attach(han)
+han
+```
+```{r}
+head(han)
+```
+
+#One way table
+```{r}
+table(Sex)
+```
+#two way  table
+```{r}
+table(Sex,Marital.Status)
+```
+#Three way table use ftables
+```{r}
+ftable(Sex,Marital.Status,Education.Level)
+```
+#plots 
+#pie plot
+```{r}
+pie(table(Marital.Status))
+```
+
+```{r}
+art<-lm(Pay~Experience,data = han)
+art
+summary(art)
+```
+
+#summary statistics
+```{r}
+summary(han)
+```
+```{r}
+plot(Experience)
+```
+
+
+```{r}
+scatter.smooth(han$Age)
+
+```
+
+
+#t test
+#1 sample
+```{r}
+mean(Experience)
+t.test(Experience,mu=8)
+```
+#two sample/independent sample
+
+```{r}
+t.test(Pay~Sex)
+```
+```{r}
+var(Pay)
+```
+#paired test

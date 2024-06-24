@@ -1,0 +1,200 @@
+---
+title: "Data transformation"
+author: "Hans"
+date: "4/13/2021"
+output:
+  word_document: default
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup,cache=FALSE,include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r getdata}
+df <- airquality
+df
+```
+
+#dealing with missing values
+#1:Omit
+```{r omit incomplete}
+df1 <- df[complete.cases(df),]
+
+df1
+```
+
+
+#2:Replacing missing values with mean
+```{r replace}
+df$Ozone[is.na(df$Ozone)]=mean(df$Ozone,na.rm = TRUE)
+df
+```
+
+```{r}
+df$Solar.R[is.na(df$Solar.R)]=mean(df$Solar.R,na.rm = TRUE)
+df
+```
+
+
+```{r}
+df$Ozone=round(df$Ozone,digits = 1)
+df
+df$Solar.R=round(df$Solar.R,digits = 1)
+df
+```
+
+**Plots**
+#1:Barchart
+
+```{r}
+df3 <- head(df)
+df3
+```
+
+```{r}
+barplot(df3$Ozone,xlab = "count",ylab = "ozone value",col = "green",main = "OZONE BARCHART",border = "yellow")
+```
+
+
+#Adding legend to chart?
+
+#code eg.
+#legend("topleft",regions,cex=1.3,fill=("green","pink"))
+
+
+#2:**Pie chart**
+
+#code\n
+
+#pie(x,labels,radius,main,col,clockwise)\n
+
+#x-vector that contains numeric value used in pie chart\n
+
+#labels-used to give description to slices\n
+
+#radius-?\n
+
+#Main-title\n
+
+#Cot-colour of the palette\n
+
+#clockwise-logical value that indicates the clockwise or anti-clockwise direction in which slices are drawn\n
+
+```{r}
+pie(df3$Ozone)
+```
+#Adding title to pie chart
+```{r}
+pie(df3$Ozone,main = "ozone pie chart")
+```
+
+
+#3:**Boxplot**
+#measure of how data is distributed in a data set
+
+#boxplot(x,data,notch,varwidth,names,main)
+
+#x-vector or formula
+
+#data-data frame
+
+#Notch-logical value set as true to draw a notch
+
+#varwidth-logical value set as true to draw width of box same as sample size.
+
+#names-is a group of labels that will be printed under each boxplot
+
+#main-title
+
+
+
+#Boxplot using Notch-helps find out how medians of different data groups match with each other.
+
+#NB:Colour not applied below
+
+```{r}
+boxplot(mpg~cyl,data = mtcars,xlab = "Quantity of Cylinders",ylab = "Miles per Gallon",notch=TRUE,varwidth=TRUE,ccol=c("yellow","blue","red"),names=c("High","Medium","Low"))
+```
+
+#4:**Line Graph**
+#Is a pictorial representation of information which changes over time.
+
+#plot(v,type,col,xlb,ylab)
+
+#v -vector containing numeric values
+
+#type-this parameter takes only values ?l?to draw only line or?p? to draw the points and"o" to draw both point and line
+
+```{r}
+plot(df3$Ozone,type = "o",col="green",xlab = "count",ylab = "Ozone level",main = "ozone trend line graph")
+```
+
+#5:**Scatter plot**
+
+#used to compare variables
+
+#each point on the scatter plot defines value of two variables
+
+#plot(x,y,main,xlab,ylab,xlim,ylim,axes)
+
+#x- data set whose values are on the horizontal axis
+
+#y-?
+
+#main-?
+
+#xlab-label of horizontal axis
+
+#ylab-?
+
+#xlim-limit of x values which are used for plotting
+
+#ylim-?
+
+#axes-indicates if both axes should be drawn on the plot.
+
+
+```{r}
+data <- mtcars[,c("wt","mpg")]
+data
+plot(x=data$wt,y=data$mpg,xlab = "Weight",ylab = "Milage",xlim = c(2.5,5),ylim = c(15,30),main = "Weight v/s Milage",col="green")
+
+```
+
+
+#6:**histogram**
+
+#A histogram is a type of bar chart which shows frequency of values which are compared with a set of values range.
+
+#Histogram is used for distibution whereas  a barchart is used for comparing different entities
+
+#hist(v,main,xlab,ylab,xlim,ylim,breaks,col,boarder)
+
+#v-vector with numeric values.
+
+#Break-Used to mention the width of each bar.
+
+```{r}
+v <- c(12,24,16,38,21,13,55,17,39,10,60)
+v
+hist(v,xlab = "weight",ylab = "frequency",col = "pink",border="yellow",main = "histogram of V")
+```
+
+#Using limits
+
+```{r}
+hist(v,xlab = "weight",ylab = "frequency",col = "blue",border="yellow",main = "histogram of V",xlim = c(0,40),ylim = c(0,3),breaks = 5)
+```
+
+#Finding return value of histogram
+
+```{r}
+m <- hist(v)
+m
+```
+#ggplot syntax
+#ggplot(data=df,aes(x=?,y=?,group=1))+geom_line(linetype="dashed")+geom_point()
+
+

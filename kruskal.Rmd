@@ -1,0 +1,22 @@
+---
+title: "kruskal Wallis"
+author: "hansdefarmer"
+date: "`r Sys.Date()`"
+output:
+  word_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r}
+krus<-read.csv("kruskal.csv")
+krus
+```
+```{r}
+k=kruskal.test(dta~groups,data = krus)
+print(k)
+```
+
+

@@ -1,0 +1,167 @@
+---
+title: "Islr2"
+author: "hansdefarmer"
+date: "5/31/2022"
+output:
+  html_document: default
+  word_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+ls()-look at alist of all objects saved.
+rs()-removes what we dpont want.
+mass-datasets and functions. 
+Islr2- datasets.
+
+**LINEAR REGRESSION**
+```{r}
+library(MASS)
+```
+```{r}
+df<-Boston
+attach(df)
+df
+```
+```{r}
+head(df)
+mod1<-lm(medv~lstat, data = df)
+mod1
+summary(mod1)
+```
+checking other info stored in lm function.
+```{r}
+names(mod1)
+coef(mod1)
+```
+confidence intervals.
+```{r ,kable()}
+confint(mod1)
+```
+```{r}
+predict(mod1,data.frame(lstat=(c(5,10,15))),interval="confidence")
+```
+Predict ()-predict outcomes from a generated model.
+```{r}
+predict(mod1,data.frame(lstat=(c(5,10,15))),interval="prediction")
+```
+plot regresion lines.
+```{r}
+plot(medv,lstat)
+mod1<-lm(medv~lstat, data = df)
+abline(mod1)
+```
+There is non linearity.
+```{r}
+#abline(mod1,pch=20)
+```
+
+Diagonistic plots.
+
+```{r}
+par(mfrow=c(2,2))
+plot(mod1)
+```
+rstudent()-returns studentized values.
+```{r}
+plot(predict(mod1),residuals(mod1))
+
+
+plot(predict(mod1),rstudent(mod1))
+```
+
+**MULTIPLE REGRESSION**
+  
+  
+```{r}
+mod2=lm(medv~lstat+age,data=Boston)
+mod2
+summary(mod2)
+```
+
+KNN regression- tries to predict the value of the output variable by using the local average.
+
+KNN classification- attempts to predict class to which the output variable belongs by computing the local probability
+
+Using Auto data **regression**
+
+```{r, kable()}
+library(MASS)
+dt1<-Auto
+dt1
+attach(dt1)
+```
+
+```{r}
+atm1<-lm(mpg~horsepower,data=dt1)
+summary(atm1)
+#The model is significant
+```
+
+```{r}
+horse<-data.frame(horsepower=98)
+horse
+predict(atm1,newdata=horse)
+#value of mpg when horsepower is 98=24.46
+# prediction of prediction.
+predict(atm1,horse,interval = "prediction")
+# prediction of confidence interval associated with confidence itself.
+predict(atm1,horse,interval = "confidence")
+```
+
+Plot abline for the model above.
+Diagonistic plot
+```{r}
+par(mfrow=c(2,2))
+plot(atm1)
+```
+Scatterplot matrix
+```{r}
+pairs(dt1)
+#scatterplot matrix for subset of data.
+pairs(~mpg+horsepower+acceleration,data=dt1)
+```
+
+
+Multiple
+
+```{r}
+#Deleting a column of a dataframe.**1: set column to null,create a new dataframe and exclude the unwanted from original data.eg df[,-5] removing the fifth column.
+dt1
+cor(dt1)
+```
+
+```{r}
+mt1<-lm(mpg~cylinders+displacement+horsepower+weight+acceleration+year+origin,data = dt1)
+summary(mt1)
+#predictors with statistically significant relationship to response =weight, yera,and origin.
+```
+```{r}
+#diagonistic plot
+par(mfrow=c(2,3))
+plot(mt1)
+```
+
+carseats dataset analysis
+
+```{r}
+library(ISLR2)
+Carseats
+attach(Carseats)
+
+```
+```{r}
+mod2<-lm(Sales~Price+Urban+US,data = Carseats)
+summary(mod2)
+```
+Confidence interval for the model.
+```{r}
+moche<-lm(Sales~Price+Price+US,data = Carseats)
+summary(moche)
+
+confint(moche)
+```
+
+

@@ -1,0 +1,11 @@
+---
+title: "Untitled"
+author: "ianoh"
+date: "6/8/2021"
+output: word_document
+---
+
+```{r}
+farlemp.data<-c(3,6,9,9,4,10,6,4,12)
+t.test(farlemp.data,mu=4,alternative="greater")
+```

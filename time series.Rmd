@@ -1,0 +1,168 @@
+---
+title: "time series"
+author: "hansdefarmer"
+date: "8/23/2021"
+output:
+  word_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+**R-Time series Analysis**
+
+Any metric is measured over a regular time forms a time series.
+
+**Time series**-Is a collection of observations made sequentially in time.
+Creating a Time series-ts() function is used to create a time series
+
+E.g timeseries<-ts(data,start,end,frequency)
+
+**Data**-Vector or matrix which contains values used in time series
+**Start**-start time for the first observation.
+**End**-end time for the last observation.
+**Frequency**-specifies number of observations per unit time
+Example ,Consider the annual snowfall details at a place starting from January 2013.
+
+```{r}
+snowfall <- c(790,1170.8,860.1,1330.6,630.4,911.5,683.5,996.6,783.2,982,881.8,1021)
+timeseries <- ts(snowfall,start = c(2013,1),frequency = 12)
+timeseries
+```
+
+```{r}
+library(tseries)
+plot.ts(timeseries,main="Time series Plot")
+```
+########################################################
+
+**Stationary Time Series**
+
+A series is stationary if ;
+
+1. Mean value of series is constant over time.That implies that trend component is declared null.
+
+2.Variance should not increase over time.
+
+3.The seasonality effect should be minimal.
+
+i.e it is a trendseasonal pattern .which resembles a random white noise  regardless of time interval observed.
+
+NOTE:Stationary Time Series is the one whose  statistical properties like mean ,variance ,and autocorrrelation, etc are all constant over time.
+######################################################
+
+Differencing time series data to make it stationary
+
+**forex data AUD\JPY**
+clearing allvariables in the Workspace
+```{r}
+rm(list = ls())
+#loading the forecasting package
+library(fpp2)
+```
+Importing the data
+```{r}
+jpy=read.csv("C:\\Users\\dennis\\Downloads\\AUD_JPY (1 T).csv")
+jpy
+jpy=jpy[,3]
+jpy
+#converting to time series data. Time is in seconds i.e, changes occuring in every second
+jpyt=ts(jpy,start = c(7,1),frequency = 20)
+```
+Preliminary analysis
+```{r}
+#Time plot
+autoplot(jpyt)+ggtitle("Change In AUD/JPY Forex.Time plot")+
+  ylab("AUD/JPY")
+```
+
+Differencing the data to remove trend
+```{r}
+dy=diff(jpyt)
+#plotting differeced data.
+autoplot(dy)+ggtitle("Differenced Change in AUD/JPY :Forex Time Plot")+
+  ylab("AUD/JPY")
+```
+
+Differencing the second time to make the data stationary and remove trend
+```{r}
+dy0=diff(dy)
+#plotting differeced data.
+autoplot(dy0)+ggtitle("Differenced2 Change in AUD/JPY :Forex Time Plot")+
+  ylab("AUD/JPY")
+```
+series appear trend-stationary,use to investigate seasonality.
+
+```{r}
+ggseasonplot(dy0)+ggtitle("Seasonal Plot: Change in AUD/JPY :Forex Time Plot")+
+  ylab("AUD/JPY")
+```
+Another seasonal plot, the subseries plot.
+```{r}
+ggsubseriesplot(dy0)+ggtitle("subseries Plot: Change in AUD/JPY :Forex Time Plot")+
+ ylab("AUD/JPY")
+#**Each season requires at least 2 observations** for doing sub series plot
+
+```
+
+##############################################################
+
+If our model has seasonality and trend we take the first difference.
+Forecast with various methods
+
+##############################################################
+###########
+use benchmark method to forecast.
+Using seasonal naive method as our benchmark
+y_t = y_(t-s)+e_t
+
+##########
+```{r}
+fit=snaive(dy0) #residual=0.007
+summary(fit)
+checkresiduals(fit)
+```
+
+#########
+Fit exponential smoothing
+Fit ETS method
+
+#########
+```{r}
+fit_ets=ets(dy0) #residual= 0.0728011
+summary(fit_ets)
+checkresiduals(fit_ets)
+```
+
+#########
+fitting arima model
+
+#########
+```{r}
+fit_arima=auto.arima(jpyt,d=1,D=1,stepwise = FALSE,approximation = FALSE,trace = TRUE) #residual= 0.04872371
+summary(fit_arima)
+checkresiduals(fit_arima)
+forecast(fit_arima)
+```
+
+Forecast using seasonal naive model
+```{r}
+fcast=forecast(fit,h=40)
+summary(fcast)
+autoplot(fcast,include = 80)
+```
+
+
+
+Time series data from R- airpassengers.
+
+```{r}
+ps=AirPassengers
+class(ps)
+
+```
+```{r}
+boxplot(ps,notch = TRUE)
+```
+

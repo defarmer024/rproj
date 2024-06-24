@@ -1,0 +1,137 @@
+---
+title: "Data transformation"
+author: "Hans"
+date: "4/13/2021"
+output:
+  html_document: default
+  pdf_document: default
+  word_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r}
+df <- airquality
+df
+```
+
+#dealing with missing values
+#1:Omit
+```{r}
+df1 <- df[complete.cases(df),]
+
+df1
+```
+
+
+#2:Replacing missing values with mean
+```{r}
+df$Ozone[is.na(df$Ozone)]=mean(df$Ozone,na.rm = TRUE)
+df
+df$Ozone <- round(df$Ozone,digits = 2)
+df  
+```
+
+```{r}
+df$Solar.R[is.na(df$Solar.R)]=mean(df$Solar.R,na.rm = TRUE)
+df$Solar.R <- round(df$Solar.R,digits = 2)
+df
+```
+
+
+```{r}
+df$Solar.R[is.na(df$Solar.R)]=mean(df$Solar.R,na.rm = TRUE)
+df
+```
+
+**Plots**
+#1:Barchart
+
+```{r}
+df3 <- head(df)
+df3
+```
+
+```{r}
+barplot(df3$Ozone,xlab = "count",ylab = "ozone value",col = "black",main = "OZONE BARCHART",border = "yellow")
+```
+
+
+#Adding legend to chart?
+
+#code eg.
+#legend("topleft",regions,cex=1.3,fill=("green","pink"))
+
+
+**Pie chart**
+#code
+#pie(x,labels,radius,main,col,clockwise)
+#x-vector that contains numeric value used in pie chart
+#labels-used to give description to slices
+#radius-?
+#Main-title
+#Cot-colour of the palette
+#clockwise-logical value that indicates the clockwise or anti-clockwise direction in whuch slices are drawn
+```{r}
+pie(df3$Ozone,main="Ozone Pie")
+```
+#Adding title to pie chart
+```{r}
+pie(df3$Ozone,main = "ozone pie chart")
+```
+
+#3:**Boxplot**
+#measure of how data is distributed in a data set
+#boxplot(x,data,notch,varwidth,names,main)
+#x-vector or formula
+#data-data frame
+#Notch-logical value set as true to draw a notch
+#varwidth-logical value set as true to draw width of box same as sample size.
+#names-is a group of labels that will be printed under each boxplot
+#main-title
+
+```{r}
+mtcars
+boxplot(mpg~cyl,data = mtcars,xlab = "Quantity Of Cylinders",ylab = "Miles per Gallon",main="Mtcars Boxplot")
+```
+
+#Boxplot using Notch-helps find out how medians of different data groups match with each other.
+
+#NB:Colour not applied below
+
+```{r}
+boxplot(mpg~cyl,data = mtcars,xlab = "Quantity of Cylinders",ylab = "Miles per Gallon",notch=TRUE,varwidth=TRUE,ccol=c("yellow","blue","red"),names=c("High","Medium","Low"))
+```
+#3:**Line Graph**
+#Is a pictorial representation of information which changes over time.
+#plot(v,type,col,xlb,ylab)
+#v -vector containing numeric values
+#type-this parameter takes only values ?l?to draw only line or?p? to draw the points and"o" to draw both point and line
+```{r}
+plot(df3$Ozone,type = "o",col="green",xlab = "count",ylab = "Ozone level",main = "ozone trend line graph")
+```
+
+#4:**Scatter plot**
+#used to compare variables
+#each point on the scatter plot defines value of two variables
+
+#plot(x,y,main,xlab,ylab,xlim,ylim,axes)
+#x- data set whose values are on the horizontal axis
+#y-?
+#main-?
+#xlab-label of horizontal axis
+#ylab-?
+#xlim-limit of x values which are used for plotting
+#ylim-?
+#axes-indicates if both axes should be drawn on the plot.
+
+
+```{r}
+data <- mtcars[,c("wt","mpg")]
+data
+plot(x=data$wt,y=data$mpg,xlab = "Weight",ylab = "Milage",xlim = c(2.5,5),ylim = c(15,30),main = "Weight v/s Milage",col="green")
+
+```
+
